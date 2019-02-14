@@ -1,12 +1,13 @@
 from random import randint
+import ru_local
 
 
 def check1():
     while True:
         try:
-            number = int(input('Сколько вы готовы отдать?'))
+            number = int(input(ru_local.ONEQV))
         except ValueError:
-            print('Неверный ввод данных.')
+            print(ru_local.ERROR)
             continue
         else:
             break
@@ -16,9 +17,9 @@ def check1():
 def check2():
     while True:
         try:
-            number = int(input("На какое количество мороженого вы закупитесь ресурсами?"))
+            number = int(input(ru_local.TWOQV))
         except ValueError:
-            print('Неверный ввод данных.')
+            print(ru_local.ERROR)
             continue
         else:
             break
@@ -28,9 +29,9 @@ def check2():
 def check3():
     while True:
         try:
-            number = int(input("Отлично! Сколько мороженого вы готовы продать?"))
+            number = int(input(ru_local.THREEQV))
         except ValueError:
-            print('Неверный ввод данных.')
+            print(ru_local.ERROR)
             continue
         else:
             break
@@ -61,10 +62,10 @@ def main():
         d['day'] += 1
         PrintData(d)
 
-        print('Наступил', d['day'], 'день. Удачи! Цена ресурса 15 руб./шт.')
+        print(ru_local.NOW, d['day'], ru_local.ONE)
         buy = check2()
         if buy * 15 > d['money']:
-            print('У тебя недостаточно денег, будет куплено: ', d['money'] // 15, 'мороженого')
+            print(ru_local.NOMONEY, d['money'] // 15, ru_local.ACE)
             d['money'] -= 15 * (d['money'] // 15)
             d['item'] += d['money']//15
             PrintData(d)
@@ -76,9 +77,9 @@ def main():
         dream = check3()
 
         sale = randint(1, 100)
-        print('Сегодня клиенты пришли за', sale, 'мороженого.')
-        u = input('Чувствуешь себя успешным? ')
-        print('Неважно. хаха')
+        print(ru_local.TODAYCLIENT, sale, ru_local.ACE)
+        u = input(ru_local.GOOD)
+        print(ru_local.LOL)
 
         if dream >= sale:
             d['money'] += sale * 25
@@ -94,98 +95,94 @@ def main():
             d['crisis'] += randint(5, 10)
             PrintData(d)
             if d['crisis'] == 100:
-                print('Ты проиграл. Увы, бизнес - это не твоё. Кризис достигнул отметки МАКСИМУМ.')
+                print(ru_local.TWO)
                 break
 
-        answer_donation = input('неважно. хаха! \n Не хотите ли пожертвовать некоторую сумму в благ.фонд?(Да/Нет)').lower()
+        answer_donation = input(ru_local.FOREQV).lower()
         while True:
-            if answer_donation == 'нет' or answer_donation == 'да':
+            if answer_donation == ru_local.NO or answer_donation == ru_local.YES:
                 break
             else:
-                answer_donation = input('Неверный ввод. Да/Нет?: ').lower()
+                answer_donation = input(ru_local.ERRORONE).lower()
 
         if answer_donation == 'да':
             help1 = check1()
             d['money'] -= help1
             PrintData(d)
             if d['money'] < 15:
-                print('Ты прогорел..........')
+                print(ru_local.TREE)
                 break
-        elif answer_donation == 'нет':
+        elif answer_donation == ru_local.NO:
             d['client'] -= randint(1, 10)
             d['crisis'] += randint(10, 40)
             PrintData(d)
-            print('Эх... Продолжим')
+            print(ru_local.FORE)
 
-        prise = int(input('Сейчас будет сюрприз! Введи число (1 или 2) и наслаждайся!'))
+        prise = int(input(ru_local.SURPRISE))
         if prise == 1:
             lose = randint(1, d['item'] + 1)
-            print ('Упс! Сломалась морозильная камера! \n Ты потерял', lose, 'товара')
+            print(ru_local.HAHAONE, lose, ru_local.ITEM)
             d['item'] -= lose
             PrintData(d)
             if d['item'] > d['client']:
                 d['crisis'] += 10
                 d['client'] -= randint(5, 10)
                 if d['item'] <= 0:
-                    print('Упс,ты банкрот!')
+                    print(ru_local.ENDONE)
 
                 elif d['crisis'] == 100:
-                    print ('Хуже плохой стратегии продаж - только ее отсутствие.\n'
-                           'Игра окончена для тебя')
+                    print(ru_local.ENDTWO)
 
                 elif d['item'] < d['client']:
-                    print('Увы,не все клиенты смогут получить желаемое.\n'
-                          'Эта ошибка тебе не простительна.\n Лови статус банкрота')
+                    print(ru_local.ENDTHREE)
         else:
             luck = randint(500, 5000)
-            print('Из-за вашей рекламы мороженник по соседству разорился и вам ушла его прибыль в размере', luck,'рублей')
+            print(ru_local.HAHATWO, luck, ru_local.MONEY)
             d['money'] += luck
             d['crisis'] -= 10
             PrintData(d)
 
 
-        answer_orphan = input('Не хотите ли порадовать бесплатным мороженым детишек из детского дома?(Да/Нет)').lower()
+        answer_orphan = input(ru_local.FIVEQV).lower()
         while True:
-            if answer_orphan == 'нет' or answer_orphan == 'да':
+            if answer_orphan == ru_local.NO or answer_orphan == ru_local.YES:
                 break
             else:
-                answer_orphan = input('Неверный ввод. Да/Нет?: ').lower()
-        if answer_orphan == 'нет':
+                answer_orphan = input(ru_local.ERRORONE).lower()
+        if answer_orphan == ru_local.NO:
             PrintData(d)
-            print('Жмоотяяяра.')
+            print(ru_local.LOX)
             d['client'] -= randint(1, 10)
             d['crisis'] += randint(1, 10)
             if d['crisis'] >= 100:
-                print('Ты прогорел...(')
+                print(ru_local.TREE)
                 break
-            a = input('Ты еще готов посражаться? ')
-            if a.lower() == 'да':
+            a = input(ru_local.WONT)
+            if a.lower() == ru_local.YES:
                 continue
             else:
                 break
-        elif answer_orphan == 'да':
+        elif answer_orphan == ru_local.YES:
             help2 = check1()
             d['item'] -= help2
             d['client'] += randint(5, 15)
             PrintData(d)
             if d['item'] < d['client']:
-                print('Ты прогорел(')
+                print(ru_local.TREE)
                 break
-        s = int(input('Ты явно любишь сюрпризы,а мы любим удивлять. Держи еще один! Выбирай: 1 или 2?'))
+        s = int(input(ru_local.SURPRISETWO))
         if s == 1:
             tax = randint(20, 30)
-            print('Беда пришла от куда не ждали! \n'
-                  'Налоговая обнаружила задолжности и вам пришлось выплатить штраф',tax, 'рублей')
+            print(ru_local.HAHATHREE,tax, ru_local.MONEY)
             d['money'] -= tax
             d['crisis'] += randint(10, 20)
             PrintData(d)
             if d['money'] <= 0:
-                print('Тебе стояло лучше подумать перед открытием своего дела.Не всем дано быть бизнесменами,'
-                      'тебе вот точно.Банкрот!')
+                print(ru_local.ENDFORE)
             elif d['crisis'] >= 100:
-                print('Как говорится,плохому танцору..Но это не важно,ты просто прогорел!')
+                print(ru_local.ENDFIVE)
         else:
-            print('Сейчас лето,а значит твое время!Будь готов к притоку любителей сладенького.')
+            print(ru_local.HAHAFORE)
             d['client'] += randint(5, 15)
             d['money'] += randint(10, 20)
             d['crisis'] -= randint(10, 15)
