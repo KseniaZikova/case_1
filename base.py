@@ -78,8 +78,6 @@ def main():
 
         sale = randint(1, 100)
         print(ru_local.TODAYCLIENT, sale, ru_local.ACE)
-        u = input(ru_local.GOOD)
-        print(ru_local.LOL)
 
         if dream >= sale:
             d['money'] += sale * 25
@@ -94,6 +92,9 @@ def main():
             if d['crisis'] == 100:
                 print(ru_local.TWO)
                 break
+        
+        u = input(ru_local.GOOD)
+        print(ru_local.LOL)
 
         answer_donation = input(ru_local.FOREQV).lower()
         while True:
