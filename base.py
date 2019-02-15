@@ -83,15 +83,12 @@ def main():
 
         if dream >= sale:
             d['money'] += sale * 25
-            PrintData(d)
             d['item'] -= sale
-            PrintData(d)
             d['client'] += randint(5, 10)
             PrintData(d)
 
         else:
             d['client'] -= randint(5, 10)
-            PrintData(d)
             d['crisis'] += randint(5, 10)
             PrintData(d)
             if d['crisis'] == 100:
@@ -105,7 +102,7 @@ def main():
             else:
                 answer_donation = input(ru_local.ERRORONE).lower()
 
-        if answer_donation == 'да':
+        if answer_donation == ru_local.YES:
             help1 = check1()
             d['money'] -= help1
             PrintData(d)
