@@ -65,9 +65,10 @@ def main():
         print(ru_local.NOW, d['day'], ru_local.ONE)
         buy = check2()
         if buy * 15 > d['money']:
-            print(ru_local.NOMONEY, d['money'] // 15, ru_local.ACE)
-            d['money'] -= 15 * (d['money'] // 15)
-            d['item'] += d['money']//15
+            sell = d['money'] // 15
+            print(ru_local.NOMONEY, sell, ru_local.ACE)
+            d['money'] -= 15 * sell
+            d['item'] += sell
             PrintData(d)
         else:
             d['money'] -= buy * 15
