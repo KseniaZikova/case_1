@@ -1,3 +1,4 @@
+# Developers: Zikova K.(83%), Bateneva M.(80%), Shlapakova K.(90%)
 from random import randint
 import ru_local
 
@@ -87,6 +88,8 @@ def main():
             PrintData(d)
 
         else:
+            d['item'] -= dream
+            d['money'] += dream * 25
             d['client'] -= randint(5, 10)
             d['crisis'] += randint(5, 10)
             PrintData(d)
@@ -187,4 +190,5 @@ def main():
             d['crisis'] -= randint(10, 15)
             PrintData(d)
 
-main()
+if __name__ == '__main__':
+    main()
